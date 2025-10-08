@@ -1,0 +1,9 @@
+﻿{
+  "name": "travel-navigation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare": "node tools/inject-env.js"
+  }
+}
