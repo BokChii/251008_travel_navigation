@@ -225,6 +225,18 @@ legend {
   gap: 6px;
 }
 
+.navigation-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.navigation-exit {
+  margin-left: auto;
+}
+
 .summary-output {
   display: flex;
   flex-direction: column;

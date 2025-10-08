@@ -28,7 +28,6 @@ const TOAST_DISTANCE_THRESHOLD_METERS = 30;
 let googleMaps;
 let mapInstance;
 let stopNavigationTracking = null;
-let hasCenteredPosition = false;
 let lastHighlightedSegment = null;
 let lastToastTimestamp = 0;
 
@@ -261,7 +260,6 @@ async function calculateRoute() {
 function manageNavigationTracking(state) {
   if (state.navigation.active) {
     if (!stopNavigationTracking) {
-      hasCenteredPosition = false;
       stopNavigationTracking = beginNavigationTracking({
         onPosition: (position) => {
           updateState((draft) => {
@@ -269,10 +267,7 @@ function manageNavigationTracking(state) {
             draft.navigation.lastUpdatedAt = Date.now();
             draft.navigation.error = null;
           });
-          updateUserLocation(position, { centerMap: !hasCenteredPosition });
-          if (!hasCenteredPosition) {
-            hasCenteredPosition = true;
-          }
+          updateUserLocation(position, { centerMap: true });
         },
         onError: (error) => {
           console.error(error);
@@ -289,7 +284,6 @@ function manageNavigationTracking(state) {
       stopNavigationTracking();
       stopNavigationTracking = null;
     }
-    hasCenteredPosition = false;
     updateUserLocation(null);
     if (state.navigation.currentPosition || state.navigation.lastUpdatedAt) {
       updateState((draft) => {
